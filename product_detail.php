@@ -98,12 +98,13 @@ require_once 'php/includes/header.php'; // Defines BASE_URL
                 <?php endif; ?>
 
                 <div class="product-actions">
-                    <form action="<?php echo BASE_URL; ?>cart_actions.php" method="POST"> <!-- Placeholder for cart action -->
+                    <form action="<?php echo BASE_URL; ?>cart_handler.php" method="POST">
+                        <input type="hidden" name="action" value="add">
                         <input type="hidden" name="product_id" value="<?php echo $product['product_id']; ?>">
                         <?php if ($product['stock_quantity'] > 0): ?>
                             <label for="quantity" style="margin-right: 10px;">Quantity:</label>
                             <input type="number" id="quantity" name="quantity" value="1" min="1" max="<?php echo $product['stock_quantity']; ?>" style="width: 60px; padding: 8px; margin-right:10px;">
-                            <button type="submit" name="add_to_cart" class="btn add-to-cart-btn">Add to Cart</button>
+                            <button type="submit" class="btn add-to-cart-btn">Add to Cart</button>
                         <?php else: ?>
                             <button type="button" class="btn add-to-cart-btn" disabled>Out of Stock</button>
                         <?php endif; ?>

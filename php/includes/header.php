@@ -54,6 +54,10 @@ if (!defined('BASE_URL')) {
 // Page title - can be overridden by the including page
 $current_page_title = isset($page_title) ? htmlspecialchars($page_title) . " - BagShop" : "BagShop - Your Favorite Bags";
 
+// Include cart functions and get item count
+require_once __DIR__ . '/cart_functions.php'; // For get_cart_total_item_quantity()
+$cart_item_count = get_cart_total_item_quantity();
+
 // Fetch categories for navigation (placeholder for now, will be dynamic)
 // require_once __DIR__ . '/../db_connect.php';
 // require_once __DIR__ . '/category_functions.php';
@@ -92,7 +96,7 @@ $current_page_title = isset($page_title) ? htmlspecialchars($page_title) . " - B
                     <!-- End placeholder -->
                     <li><a href="<?php echo BASE_URL; ?>about.php">About Us</a></li>
                     <li><a href="<?php echo BASE_URL; ?>contact.php">Contact</a></li>
-                    <li><a href="<?php echo BASE_URL; ?>cart.php">Cart</a></li>
+                    <li><a href="<?php echo BASE_URL; ?>cart.php">Cart <span class="cart-summary-count"><?php echo $cart_item_count > 0 ? '(' . $cart_item_count . ')' : '(0)'; ?></span></a></li>
                     <?php if (isset($_SESSION['customer_id'])): // Example for customer login ?>
                         <li><a href="<?php echo BASE_URL; ?>account.php">My Account</a></li>
                         <li><a href="<?php echo BASE_URL; ?>logout.php">Logout</a></li>
@@ -104,5 +108,15 @@ $current_page_title = isset($page_title) ? htmlspecialchars($page_title) . " - B
             </nav>
         </div>
     </header>
+
+    <?php
+    // Display session messages if any
+    if (isset($_SESSION['message'])) {
+        echo '<div class="container" style="padding-top: 10px; padding-bottom: 0;"><div class="message ' . htmlspecialchars($_SESSION['message_type'] ?? 'info') . '">' . htmlspecialchars($_SESSION['message']) . '</div></div>';
+        unset($_SESSION['message']);
+        unset($_SESSION['message_type']);
+    }
+    ?>
+
     <main class="site-content"> <!-- This div is opened here -->
         <div class="container"> <!-- This div is opened here -->
