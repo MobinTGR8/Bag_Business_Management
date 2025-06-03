@@ -85,7 +85,7 @@ function create_product(mysqli $mysqli, array $data): int|false {
  * @return array|null The product data as an associative array (with category_name), or null if not found or on error.
  */
 function get_product_by_id(mysqli $mysqli, int $product_id): ?array {
-    $sql = "SELECT p.*, c.name as category_name
+    $sql = "SELECT p.*, c.name as category_name, c.slug as category_slug
             FROM products p
             LEFT JOIN categories c ON p.category_id = c.id
             WHERE p.product_id = ?";
@@ -136,11 +136,22 @@ function get_all_products(mysqli $mysqli, array $options = []): array {
         $types .= "ssssss";
     }
 
+    if (isset($options['is_featured']) && $options['is_featured'] === true) {
+        $where_clauses[] = "p.is_featured = 1";
+        // No parameter needed for literal 1, so $params and $types are not changed here for this clause.
+    }
+
     if (!empty($where_clauses)) {
         $sql .= " WHERE " . implode(" AND ", $where_clauses);
     }
 
     $sql .= " ORDER BY p.product_name ASC";
+
+    if (!empty($options['limit']) && is_numeric($options['limit'])) {
+        $sql .= " LIMIT ?";
+        $params[] = (int)$options['limit']; // Add to existing params array
+        $types .= "i"; // Add to existing types string
+    }
 
     $stmt = $mysqli->prepare($sql);
     if (!$stmt) {
