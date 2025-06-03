@@ -1,3 +1,11 @@
+-- Drop tables if they exist (in reverse dependency order)
+DROP TABLE IF EXISTS order_items;
+DROP TABLE IF EXISTS orders;
+DROP TABLE IF EXISTS products;
+DROP TABLE IF EXISTS categories;
+DROP TABLE IF EXISTS customers;
+DROP TABLE IF EXISTS admins;
+
 -- Categories Table
 CREATE TABLE categories (
     category_id INT AUTO_INCREMENT PRIMARY KEY,
