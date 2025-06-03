@@ -1,14 +1,30 @@
--- Categories Table
-CREATE TABLE categories (
-    category_id INT AUTO_INCREMENT PRIMARY KEY,
-    category_name VARCHAR(255) NOT NULL UNIQUE,
-    category_slug VARCHAR(255) NOT NULL UNIQUE,
-    category_description TEXT,
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
-);
+-- Drop tables if they exist, in an order that respects foreign key constraints
+SET FOREIGN_KEY_CHECKS = 0; -- Disable foreign key checks to allow arbitrary drop order (simplifies this)
 
-CREATE INDEX idx_category_slug ON categories(category_slug);
+DROP TABLE IF EXISTS `order_items`;
+DROP TABLE IF EXISTS `orders`;
+DROP TABLE IF EXISTS `products`;
+DROP TABLE IF EXISTS `categories`;
+DROP TABLE IF EXISTS `customers`;
+DROP TABLE IF EXISTS `admins`;
+
+SET FOREIGN_KEY_CHECKS = 1; -- Re-enable foreign key checks
+
+-- Categories Table
+CREATE TABLE `categories` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `name` varchar(255) NOT NULL,
+  `description` text,
+  `slug` varchar(255) NOT NULL,
+  `parent_id` int DEFAULT NULL,
+  `date_created` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  `last_updated` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `slug` (`slug`),
+  UNIQUE KEY `name` (`name`),
+  KEY `idx_category_parent` (`parent_id`),
+  CONSTRAINT `fk_category_parent` FOREIGN KEY (`parent_id`) REFERENCES `categories` (`id`) ON DELETE SET NULL ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- Products Table
 CREATE TABLE products (
@@ -23,7 +39,7 @@ CREATE TABLE products (
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     CONSTRAINT fk_product_category
-        FOREIGN KEY (category_id) REFERENCES categories(category_id)
+        FOREIGN KEY (category_id) REFERENCES categories(id) -- Updated to reference categories(id)
         ON DELETE SET NULL -- If a category is deleted, products are not deleted but category_id is set to NULL
         ON UPDATE CASCADE -- If category_id in categories table changes, update it here too
 );
