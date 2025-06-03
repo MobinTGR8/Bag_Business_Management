@@ -266,22 +266,33 @@ footer { /* This is a general footer style, might be overridden by .site-footer 
     font-weight: bold;
     margin-bottom: 15px;
 }
-.stock-status {
-    font-weight: bold;
+.product-availability { /* Container for stock messages */
     margin-bottom: 15px;
+}
+.stock-status { /* General style already exists, ensure it's good */
+    font-weight: bold;
     padding: 5px 10px;
     border-radius: 4px;
     display: inline-block;
-    font-size: 0.9em;
+    font-size: 0.95em; /* Slightly adjust size if needed */
+    /* margin-bottom: 15px; /* Removed from here, applied to .product-availability */
 }
-.stock-status.in-stock {
+.stock-status.in-stock { /* Already styled */
     background-color: #d4edda;
     color: #155724;
+    border: 1px solid #c3e6cb; /* Added border for consistency */
 }
-.stock-status.out-of-stock {
+.stock-status.out-of-stock { /* Already styled */
     background-color: #f8d7da;
     color: #721c24;
+    border: 1px solid #f5c6cb; /* Added border for consistency */
 }
+.stock-status.low-stock {
+    background-color: #fff3cd; /* Light yellow for warning */
+    color: #856404; /* Dark yellow/brown text */
+    border: 1px solid #ffeeba;
+}
+
 .product-meta {
     margin-bottom: 20px;
     font-size: 0.9em;
@@ -629,13 +640,6 @@ footer { /* This is a general footer style, might be overridden by .site-footer 
     gap: 30px;
 }
 
-/* Could use a 2-column layout for sections on wider screens if desired */
-/* @media (min-width: 768px) {
-    .account-sections {
-        grid-template-columns: repeat(2, 1fr);
-    }
-} */
-
 .account-section {
     padding: 20px;
     background-color: #f9f9f9;
@@ -660,26 +664,26 @@ footer { /* This is a general footer style, might be overridden by .site-footer 
     list-style: none;
     padding-left: 0;
 }
-.account-section ul.management-links li { /* More specific selector */
+.account-section ul.management-links li {
     margin-bottom: 8px;
 }
-.account-section ul.management-links li a { /* More specific selector */
+.account-section ul.management-links li a {
     color: #0056b3;
     text-decoration: none;
 }
-.account-section ul.management-links li a:hover { /* More specific selector */
+.account-section ul.management-links li a:hover {
     text-decoration: underline;
 }
-.account-section ul.management-links li .placeholder-tag { /* Style for (Coming Soon) */
+.account-section ul.management-links li .placeholder-tag {
     font-size: 0.85em;
     color: #777;
     margin-left: 5px;
 }
-.account-section .btn { /* If using .btn class for links */
+.account-section .btn {
     display: inline-block;
     margin-top: 10px;
 }
-.account-section a.text-danger { /* For logout link */
+.account-section a.text-danger {
     color: #dc3545;
 }
 .account-section a.text-danger:hover {
@@ -690,5 +694,22 @@ footer { /* This is a general footer style, might be overridden by .site-footer 
 }
 .account-section .profile-summary p strong {
     display: inline-block;
-    width: 100px; /* Align labels a bit */
+    width: 100px;
 }
+
+/* css/style.css additions for stock display on product_detail.php */
+.product-availability {
+    margin-bottom: 15px;
+}
+/* .stock-status is already defined, ensure these are compatible or override */
+.stock-status.low-stock {
+    background-color: #fff3cd;
+    color: #856404;
+    border: 1px solid #ffeeba;
+}
+/* Ensure existing .stock-status.in-stock and .out-of-stock have borders if .low-stock does */
+.stock-status.in-stock, .stock-status.out-of-stock {
+    border: 1px solid transparent; /* Default, can be overridden by specific class */
+}
+.stock-status.in-stock { border-color: #c3e6cb; }
+.stock-status.out-of-stock { border-color: #f5c6cb; }

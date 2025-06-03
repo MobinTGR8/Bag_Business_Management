@@ -52,11 +52,22 @@ require_once 'php/includes/header.php'; // Defines BASE_URL
 
                 <p class="product-price-detail">$<?php echo htmlspecialchars(number_format((float)$product['price'], 2)); ?></p>
 
-                <?php if ($product['stock_quantity'] > 0): ?>
-                    <p class="stock-status in-stock">In Stock (<?php echo $product['stock_quantity']; ?> available)</p>
-                <?php else: ?>
-                    <p class="stock-status out-of-stock">Out of Stock</p>
-                <?php endif; ?>
+                <div class="product-availability">
+                    <?php
+                    $stock_quantity = (int)$product['stock_quantity'];
+                    $low_stock_threshold = 5; // Define a low stock threshold
+
+                    if ($stock_quantity > 0) {
+                        if ($stock_quantity <= $low_stock_threshold) {
+                            echo '<p class="stock-status low-stock">Limited stock! Only ' . $stock_quantity . ' left.</p>';
+                        } else {
+                            echo '<p class="stock-status in-stock">In Stock (' . $stock_quantity . ' available)</p>';
+                        }
+                    } else {
+                        echo '<p class="stock-status out-of-stock">Out of Stock</p>';
+                    }
+                    ?>
+                </div>
 
                 <div class="product-meta">
                     <p><strong>SKU:</strong> <?php echo htmlspecialchars($product['product_sku']); ?></p>
