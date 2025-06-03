@@ -41,9 +41,8 @@ require_once 'php/includes/header.php'; // Includes BASE_URL, session messages d
 
         <section class="account-section">
             <h2>Order History</h2>
-            <p>You have no recent orders. <a href="<?php echo BASE_URL; ?>index.php" class="btn btn-sm btn-info" style="text-decoration:none;">Start Shopping!</a></p>
-            <!-- Placeholder: Future content will list orders -->
-            <!-- <a href="<?php echo BASE_URL; ?>order_history.php" class="btn btn-secondary">View Full Order History</a> -->
+            <p>View your past orders, track shipments (feature coming soon!), and manage returns (feature coming soon!).</p>
+            <a href="<?php echo BASE_URL; ?>order_history.php" class="btn btn-primary">View My Orders</a>
         </section>
 
         <section class="account-section">
