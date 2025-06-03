@@ -517,14 +517,178 @@ footer { /* This is a general footer style, might be overridden by .site-footer 
 .main-nav ul li a:hover .cart-summary-count {
     color: #fff; /* Change color on hover of the main link if desired */
 }
-/* Alternative badge-like style (uncomment and adjust as needed)
-.main-nav ul li a .cart-summary-count {
-    background-color: #dc3545;
-    color: white;
-    padding: 2px 6px;
-    border-radius: 10px;
-    font-size: 0.8em;
-    margin-left: 4px;
-    vertical-align: super; // Adjusts vertical alignment
+
+/* css/style.css additions for Authentication Forms (register.php, customer_login.php) */
+
+.auth-container {
+    max-width: 500px; /* Limit width of auth forms */
+    margin-top: 30px;
+    margin-bottom: 30px;
+    padding: 20px 30px;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
 }
-*/
+
+.auth-container h1 {
+    text-align: center;
+    margin-bottom: 25px;
+    font-size: 1.8em;
+}
+
+.auth-form .form-group {
+    margin-bottom: 18px;
+}
+
+.auth-form .form-group label {
+    display: block;
+    margin-bottom: 6px;
+    font-weight: bold;
+    font-size: 0.95em;
+    color: #444;
+}
+
+.auth-form .form-group input[type="text"],
+.auth-form .form-group input[type="email"],
+.auth-form .form-group input[type="password"],
+.auth-form .form-group input[type="tel"] {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    font-size: 1em;
+}
+
+.auth-form .form-group input:focus {
+    border-color: #007bff;
+    box-shadow: 0 0 0 0.2rem rgba(0,123,255,.25);
+    outline: none;
+}
+
+.auth-form .form-group.has-error input {
+    border-color: #dc3545; /* Red border for errors */
+}
+.auth-form .form-group .error-text {
+    color: #dc3545;
+    font-size: 0.85em;
+    display: block;
+    margin-top: 4px;
+}
+
+.auth-form .btn-block { /* Make button full width */
+    width: 100%;
+    padding: 12px;
+    font-size: 1.1em;
+}
+
+.auth-form-footer {
+    text-align: center;
+    margin-top: 20px;
+    font-size: 0.9em;
+}
+.auth-form-footer a {
+    color: #007bff;
+    text-decoration: none;
+}
+.auth-form-footer a:hover {
+    text-decoration: underline;
+}
+
+/* css/style.css additions for Customer Account Page (account.php) */
+
+.account-container { /* Similar to auth-container but might have different needs */
+    max-width: 800px;
+    margin-top: 30px;
+    margin-bottom: 30px;
+    padding: 20px 30px;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+}
+
+.account-container h1 {
+    text-align: left; /* Align to left, or center if preferred */
+    margin-bottom: 15px;
+    font-size: 1.8em;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #eee;
+}
+
+.welcome-message {
+    font-size: 1.2em;
+    color: #333;
+    margin-bottom: 30px;
+}
+
+.account-sections {
+    display: grid;
+    grid-template-columns: 1fr; /* Single column for now */
+    gap: 30px;
+}
+
+/* Could use a 2-column layout for sections on wider screens if desired */
+/* @media (min-width: 768px) {
+    .account-sections {
+        grid-template-columns: repeat(2, 1fr);
+    }
+} */
+
+.account-section {
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 5px;
+    border: 1px solid #eee;
+}
+
+.account-section h2 {
+    font-size: 1.4em;
+    color: #007bff;
+    margin-top: 0;
+    margin-bottom: 15px;
+    padding-bottom: 10px;
+    border-bottom: 1px dotted #ccc;
+}
+
+.account-section p {
+    margin-bottom: 10px;
+    line-height: 1.6;
+}
+.account-section ul {
+    list-style: none;
+    padding-left: 0;
+}
+.account-section ul.management-links li { /* More specific selector */
+    margin-bottom: 8px;
+}
+.account-section ul.management-links li a { /* More specific selector */
+    color: #0056b3;
+    text-decoration: none;
+}
+.account-section ul.management-links li a:hover { /* More specific selector */
+    text-decoration: underline;
+}
+.account-section ul.management-links li .placeholder-tag { /* Style for (Coming Soon) */
+    font-size: 0.85em;
+    color: #777;
+    margin-left: 5px;
+}
+.account-section .btn { /* If using .btn class for links */
+    display: inline-block;
+    margin-top: 10px;
+}
+.account-section a.text-danger { /* For logout link */
+    color: #dc3545;
+}
+.account-section a.text-danger:hover {
+    color: #c82333;
+}
+.account-section .profile-summary p {
+    font-size: 1.05em;
+}
+.account-section .profile-summary p strong {
+    display: inline-block;
+    width: 100px; /* Align labels a bit */
+}

@@ -58,6 +58,9 @@ $current_page_title = isset($page_title) ? htmlspecialchars($page_title) . " - B
 require_once __DIR__ . '/cart_functions.php'; // For get_cart_total_item_quantity()
 $cart_item_count = get_cart_total_item_quantity();
 
+// Include customer functions for login status
+require_once __DIR__ . '/customer_functions.php'; // For is_customer_logged_in()
+
 // Fetch categories for navigation (placeholder for now, will be dynamic)
 // require_once __DIR__ . '/../db_connect.php';
 // require_once __DIR__ . '/category_functions.php';
@@ -96,14 +99,20 @@ $cart_item_count = get_cart_total_item_quantity();
                     <!-- End placeholder -->
                     <li><a href="<?php echo BASE_URL; ?>about.php">About Us</a></li>
                     <li><a href="<?php echo BASE_URL; ?>contact.php">Contact</a></li>
-                    <li><a href="<?php echo BASE_URL; ?>cart.php">Cart <span class="cart-summary-count"><?php echo $cart_item_count > 0 ? '(' . $cart_item_count . ')' : '(0)'; ?></span></a></li>
-                    <?php if (isset($_SESSION['customer_id'])): // Example for customer login ?>
-                        <li><a href="<?php echo BASE_URL; ?>account.php">My Account</a></li>
-                        <li><a href="<?php echo BASE_URL; ?>logout.php">Logout</a></li>
+
+                    <li><a href="<?php echo BASE_URL; ?>cart.php">
+                        Cart <span class="cart-summary-count"><?php echo $cart_item_count > 0 ? '(' . $cart_item_count . ')' : '(0)'; ?></span>
+                    </a></li>
+
+                    <?php if (is_customer_logged_in()): ?>
+                        <li><a href="<?php echo BASE_URL; ?>account.php">My Account (<?php echo htmlspecialchars($_SESSION['customer_first_name'] ?? 'User'); ?>)</a></li>
+                        <li><a href="<?php echo BASE_URL; ?>customer_logout.php">Logout</a></li>
                     <?php else: ?>
-                        <li><a href="<?php echo BASE_URL; ?>login.php">Login/Register</a></li>
+                        <li><a href="<?php echo BASE_URL; ?>customer_login.php">Login</a></li>
+                        <li><a href="<?php echo BASE_URL; ?>register.php">Register</a></li>
                     <?php endif; ?>
-                    <li><a href="<?php echo BASE_URL; ?>admin/index.php" style="color: #ffc107;">Admin</a></li>
+
+                    <li><a href="<?php echo BASE_URL; ?>admin/index.php" style="color: #ffc107;">Admin Panel</a></li>
                 </ul>
             </nav>
         </div>
