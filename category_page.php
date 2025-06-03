@@ -60,9 +60,17 @@ require_once 'php/includes/header.php'; // Includes BASE_URL and basic HTML stru
                             <h4><?php echo htmlspecialchars($product['product_name']); ?></h4>
                         </a>
                         <p class="product-price">$<?php echo htmlspecialchars(number_format((float)$product['price'], 2)); ?></p>
-                        <a href="<?php echo BASE_URL; ?>product_detail.php?id=<?php echo htmlspecialchars($product['product_id']); ?>" class="btn">View Details</a>
-                        <!-- Add to cart button placeholder if needed later -->
-                        <!-- <button class="btn add-to-cart-btn" data-product-id="<?php echo htmlspecialchars($product['product_id']); ?>">Add to Cart</button> -->
+                        <div class="product-item-actions" style="margin-top: 10px;">
+                            <a href="<?php echo BASE_URL . 'product_detail.php?id=' . htmlspecialchars($product['product_id']); ?>" class="btn btn-details" style="background-color: #17a2b8; color:white; padding: 8px 12px; text-decoration: none; border-radius: 4px; font-size: 0.9em; display:inline-block; margin-right:5px;">View Details</a>
+                            <form action="<?php echo BASE_URL; ?>cart_handler.php" method="POST" style="display: inline;">
+                                <input type="hidden" name="action" value="add">
+                                <input type="hidden" name="product_id" value="<?php echo $product['product_id']; ?>">
+                                <input type="hidden" name="quantity" value="1">
+                                <button type="submit" class="btn btn-success btn-sm add-to-cart-list-btn" <?php echo ($product['stock_quantity'] > 0) ? '' : 'disabled'; ?>>
+                                    <?php echo ($product['stock_quantity'] > 0) ? 'Add to Cart' : 'Out of Stock'; ?>
+                                </button>
+                            </form>
+                        </div>
                     </div>
                 <?php endforeach; ?>
             </div>

@@ -59,8 +59,18 @@ $featured_products = get_all_products($mysqli, ['is_featured' => true, 'limit' =
                 <p class="product-price" style="font-size: 1.1em; color: #007bff; font-weight: bold; margin-bottom: 10px;">
                     $<?php echo htmlspecialchars(number_format((float)$product['price'], 2)); ?>
                 </p>
-                <button class="btn" style="display: inline-block; background-color: #28a745; color: white; padding: 8px 15px; text-decoration: none; border-radius: 5px; font-size: 0.9em; border:none; cursor:pointer;">View Details</button>
-            </a>
+            </a> <!-- End of link wrapping image, title, price -->
+            <div class="product-item-actions" style="margin-top: 10px;">
+                <a href="<?php echo BASE_URL . 'product_detail.php?id=' . htmlspecialchars($product['product_id']); ?>" class="btn btn-details" style="background-color: #17a2b8; color:white; padding: 8px 12px; text-decoration: none; border-radius: 4px; font-size: 0.9em; display:inline-block; margin-right:5px;">View Details</a>
+                <form action="<?php echo BASE_URL; ?>cart_handler.php" method="POST" style="display: inline;">
+                    <input type="hidden" name="action" value="add">
+                    <input type="hidden" name="product_id" value="<?php echo $product['product_id']; ?>">
+                    <input type="hidden" name="quantity" value="1">
+                    <button type="submit" class="btn btn-success btn-sm add-to-cart-list-btn" <?php echo ($product['stock_quantity'] > 0) ? '' : 'disabled'; ?>>
+                        <?php echo ($product['stock_quantity'] > 0) ? 'Add to Cart' : 'Out of Stock'; ?>
+                    </button>
+                </form>
+            </div>
         </div>
         <?php endforeach; ?>
     </div>
