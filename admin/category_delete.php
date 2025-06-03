@@ -1,11 +1,12 @@
 <?php
 // admin/category_delete.php
-session_start();
+require_once __DIR__ . '/../php/includes/admin_auth_check.php';
+// session_start(); // session_start() is now handled by admin_auth_check.php if needed
 
 require_once '../php/db_connect.php'; // Provides $mysqli
 require_once '../php/includes/category_functions.php';
 
-// Check for admin login status here if implementing authentication
+// Check for admin login status here if implementing authentication // This line is now covered by admin_auth_check.php
 
 if (!isset($_GET['id']) || !is_numeric($_GET['id'])) {
     $_SESSION['message'] = "Invalid category ID for deletion.";

@@ -1,6 +1,7 @@
 <?php
 // admin/categories.php
-session_start(); // Start session to manage messages
+require_once __DIR__ . '/../php/includes/admin_auth_check.php';
+// session_start(); // session_start() is now handled by admin_auth_check.php if needed
 
 require_once '../php/db_connect.php';
 require_once '../php/includes/category_functions.php';
