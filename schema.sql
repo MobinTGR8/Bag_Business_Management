@@ -35,18 +35,28 @@ CREATE TABLE products (
     price DECIMAL(10, 2) NOT NULL,
     stock_quantity INT NOT NULL DEFAULT 0,
     category_id INT,
-    image_url VARCHAR(2083), -- Standard max URL length
+    image_url VARCHAR(2083),
+    brand VARCHAR(100) NULL,
+    dimensions VARCHAR(100) NULL,
+    weight_kg DECIMAL(10,3) NULL,
+    material VARCHAR(100) NULL,
+    color VARCHAR(50) NULL,
+    is_featured TINYINT(1) NOT NULL DEFAULT 0,
+    is_active TINYINT(1) NOT NULL DEFAULT 1,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     CONSTRAINT fk_product_category
-        FOREIGN KEY (category_id) REFERENCES categories(id) -- Updated to reference categories(id)
-        ON DELETE SET NULL -- If a category is deleted, products are not deleted but category_id is set to NULL
-        ON UPDATE CASCADE -- If category_id in categories table changes, update it here too
+        FOREIGN KEY (category_id) REFERENCES categories(id)
+        ON DELETE SET NULL
+        ON UPDATE CASCADE
 );
 
 CREATE INDEX idx_product_sku ON products(product_sku);
 CREATE INDEX idx_product_category ON products(category_id);
 CREATE INDEX idx_product_name ON products(product_name);
+CREATE INDEX idx_product_brand ON products(brand);
+CREATE INDEX idx_product_is_featured ON products(is_featured);
+CREATE INDEX idx_product_is_active ON products(is_active);
 
 -- Customers Table
 CREATE TABLE customers (
