@@ -94,9 +94,9 @@ $admin_username = isset($_SESSION['admin_username']) ? $_SESSION['admin_username
         <nav class="dashboard-links">
             <ul>
                 <li><a href="categories.php">Manage Categories</a></li>
+                <li><a href="products.php">Manage Products</a></li>
+                <li><a href="orders.php">Manage Orders</a></li>
                 <!-- Add links to other management sections here as they are created -->
-                <!-- e.g., <li><a href="products.php">Manage Products</a></li> -->
-                <!-- e.g., <li><a href="orders.php">Manage Orders</a></li> -->
             </ul>
         </nav>
 
